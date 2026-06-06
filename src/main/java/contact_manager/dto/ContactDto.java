@@ -1,6 +1,7 @@
 package contact_manager.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,6 @@ public class ContactDto {
     private String surname;
 
     @NotBlank(message = "Phone cannot be blank")
-    @Size(min = 12, max = 12, message = "Phone must be exactly 12 characters")
+    @Pattern(regexp = "^998[0-9]{9}$", message = "Phone must start with 998 and contain 12 digits")
     private String phone;
 }

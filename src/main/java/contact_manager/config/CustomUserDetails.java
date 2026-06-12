@@ -1,6 +1,7 @@
 package contact_manager.config;
 
 import contact_manager.entity.ProfileEntity;
+import lombok.Getter;
 import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,15 +9,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+@Getter
 public class CustomUserDetails implements UserDetails {
 
-    private final String username;
-    private final String password;
-
+    private final ProfileEntity profile;
 
     public CustomUserDetails(ProfileEntity profile){
-        this.username=profile.getUsername();
-        this.password=profile.getPassword();
+        this.profile=profile;
     }
 
     @Override
@@ -26,11 +25,11 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public @NonNull String getPassword() {
-        return password;
+        return profile.getPassword();
     }
 
     @Override
     public @NonNull String getUsername() {
-        return username;
+        return profile.getUsername();
     }
 }

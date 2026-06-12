@@ -11,7 +11,7 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler{
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<String> handleNotFount(NotFoundException ex){
+    public ResponseEntity<String> handleNotFound(NotFoundException ex){
         return ResponseEntity.status(404).body(ex.getMessage());
     }
 

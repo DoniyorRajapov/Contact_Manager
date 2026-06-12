@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
 public class ProfileController {
@@ -19,7 +21,7 @@ public class ProfileController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody ProfileDto dto){
-        return ResponseEntity.ok(service.login(dto));
+    public ResponseEntity<Map<String,String>> login(@Valid @RequestBody ProfileDto dto){
+        return ResponseEntity.ok(Map.of("token",service.login(dto)));
     }
 }

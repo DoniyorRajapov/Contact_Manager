@@ -1,11 +1,11 @@
 package contact_manager.service;
 
+import contact_manager.config.CustomUserDetails;
 import contact_manager.dto.ContactDto;
 import contact_manager.entity.ContactEntity;
 import contact_manager.entity.ProfileEntity;
 import contact_manager.exception.NotFoundException;
 import contact_manager.repository.ContactRepository;
-import contact_manager.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -17,9 +17,6 @@ import java.util.UUID;
 public class ContactService {
     @Autowired
     private ContactRepository repository;
-
-    @Autowired
-    private ProfileRepository profileRepository;
 
     public ContactDto create(ContactDto dto){
         ContactEntity entity = mapToEntity(dto);
@@ -79,11 +76,11 @@ public class ContactService {
     }
 
     private ProfileEntity profile(){
-        return profileRepository.findByUsername(SecurityContextHolder
+        return ((CustomUserDetails) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
-                .getName())
-                .orElseThrow(()-> new NotFoundException("Profile not found"));
+                .getPrincipal())
+                .getProfile();
     }
 
     private ContactEntity findContact(UUID id){

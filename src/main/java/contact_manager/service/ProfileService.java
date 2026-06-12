@@ -5,6 +5,7 @@ import contact_manager.entity.ProfileEntity;
 import contact_manager.exception.AlreadyExistsException;
 import contact_manager.exception.NotFoundException;
 import contact_manager.repository.ProfileRepository;
+import contact_manager.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ public class ProfileService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtUtil jwt;
 
     public String register(ProfileDto dto){
         if(repository.existsByUsername(dto.getUsername())){
@@ -31,7 +35,7 @@ public class ProfileService {
                 .orElseThrow(()->new NotFoundException("User or password not found"));
         if (!passwordEncoder.matches(dto.getPassword(), entity.getPassword()))
             throw new NotFoundException("User or password not found");
-        return "Login successful!";
+        return jwt.encode(entity.getUsername());
     }
 
     private ProfileEntity mapToEntity(ProfileDto dto){

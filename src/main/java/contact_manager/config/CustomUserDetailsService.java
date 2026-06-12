@@ -16,7 +16,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public @NonNull UserDetails loadUserByUsername(@NonNull String username) throws UsernameNotFoundException {
-        ProfileEntity profile=repository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
+        ProfileEntity profile = repository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return new CustomUserDetails(profile);
     }
 }

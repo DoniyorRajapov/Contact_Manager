@@ -1,4 +1,4 @@
-# Contact Manager (Aloqalar Boshqaruvchisi)
+# Contact Manager
 
 Bu loyiha **Spring Boot** va **Spring Security (JWT)** texnologiyalari yordamida yaratilgan RESTful API dasturi bo'lib, foydalanuvchilarga o'zlarining shaxsiy kontaktlarini xavfsiz boshqarish imkoniyatini beradi.
 
